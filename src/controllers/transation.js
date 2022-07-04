@@ -1,11 +1,14 @@
-import { findUser, newToken } from '../db/database.js';
+import { postEntries } from '../db/database.js';
 import bcrypt from 'bcrypt';
+import dayjs from 'dayjs';
 
-async function login(req, res) {
+async function transaction(req, res) {
     try {
-        const user = res.locals.user;
+        const entry = res.locals.user;
+        const date = dayjs().format('DD/MM');
+        const user = req.body
 
-        const dbUser = await findUser(user);
+        await postEntries(entry, user, date);
         
         if(dbUser === '404') {
             res.status(404).send('Usuário ou senha incorreto!');
@@ -19,11 +22,7 @@ async function login(req, res) {
             return;
         }
 
-        const session = await newToken(dbUser);
-
-        delete session._id;
-
-        res.status(200).send(session);
+        res.sendStatus(200)
         
     } catch (error) {
         console.error(error);
@@ -33,4 +32,4 @@ async function login(req, res) {
 
 }
 
-export default login;
+export default transaction;

@@ -90,6 +90,11 @@ async function newToken(user) { //done
     const lastSession = await db.collection('tokens').findOne({userId: new ObjectId(user._id)});
 
     const token = uuid();
+    const time = Date.now();
+
+    if(time - lastSession.time < 20000 ) {
+        return lastSession;
+    }
 
     if(lastSession) {
         try {
@@ -99,7 +104,8 @@ async function newToken(user) { //done
             })
             return {
                 ...lastSession,
-                token
+                token,
+                time
             };
         } catch (error) {
             return 'error';
@@ -110,7 +116,8 @@ async function newToken(user) { //done
         name: user.username,
         email: user.email,
         userId: user._id,
-        token
+        token,
+        time
     }
 
     await db.collection('tokens').insertOne(userData);

@@ -41,11 +41,19 @@ async function createUser(user) { //done
     }
 }
 
-async function getEntries() {
+async function getEntries(user) {
+    try {
+        const allTransactions = await db.collection('movimentation-db').find({userId: user.userId}).toArray();
 
+        return allTransactions;
+
+    } catch (error) {
+        console.log(error);
+        return 'error';
+    }
 }
 
-async function postEntries(entry, user, date) {
+async function postEntries(entry, user, date) { //done
     try {
         await db.collection('movimentation-db').insertOne(
             {
@@ -55,7 +63,7 @@ async function postEntries(entry, user, date) {
             });
 
         return '201';
-        
+
     } catch (error) {
         console.error(error);
         return 'error';

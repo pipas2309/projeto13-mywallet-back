@@ -1,0 +1,32 @@
+{
+  "name": "projeto13-mywallet-back",
+  "version": "1.0.0",
+  "description": "<h1 align=\"center\">Welcome to My Wallet API - Backend 👋</h1>\r <p>\r   <img alt=\"Version\" src=\"https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000\" />\r </p>",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node ./src/server.js",
+    "dev": "nodemon ./src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pipas2309/projeto13-mywallet-back.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pipas2309/projeto13-mywallet-back/issues"
+  },
+  "homepage": "https://github.com/pipas2309/projeto13-mywallet-back#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "joi": "^17.6.0",
+    "mongodb": "^4.7.0",
+    "nodemon": "^2.0.18",
+    "uuid": "^8.3.2"
+  }
+}

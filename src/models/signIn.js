@@ -5,7 +5,7 @@ const signinSchema = joi.object({
     password: joi.string().min(6).max(64).required()
 });
 
-async function signinValidation(signin) {
+async function signIn(signin) {
     try {
         const allowedSignInData = await signinSchema.validateAsync(signin, { abortEarly: false });
         return allowedSignInData;
@@ -16,4 +16,4 @@ async function signinValidation(signin) {
     }
 };  
 
-export default signinValidation;
+export default signIn;

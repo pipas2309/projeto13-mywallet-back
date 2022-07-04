@@ -1,15 +1,15 @@
 import joi from 'joi';
 
-const entrySchema = joi.object({
+const signupSchema = joi.object({
     username: joi.string().min(3).max(64).required(),
     email: joi.string().email().required(),
     password: joi.string().min(6).max(64).required()
 });
 
-async function entryValidation(entry) {
+async function signUp(signup) {
     try {
-        const allowedEntry = await entrySchema.validateAsync(entry, { abortEarly: false });
-        return allowedEntry;
+        const allowedUserData = await signupSchema.validateAsync(signup, { abortEarly: false });
+        return allowedUserData;
 
     } catch (error) {
         console.log(error);
@@ -17,4 +17,4 @@ async function entryValidation(entry) {
     }
 };  
 
-export default entryValidation;
+export default signUp;

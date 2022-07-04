@@ -2,7 +2,7 @@ import express from 'express';
 
 const router = express.Router();
 
-router.get("/transactions-list", signupValidation);
+router.get("/transactions-list", );
 router.get("/balance", );
 router.post("/draft", );
 router.post("/deposit", );

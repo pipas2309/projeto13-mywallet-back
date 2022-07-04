@@ -50,22 +50,12 @@ async function postEntries(entry, user, date) {
         await db.collection('movimentation-db').insertOne(
             {
                 ...entry,
-                userId: user._id,
+                userId: user.userId,
                 date 
             });
 
-        if(alreadyExist) {
-            console.log('Usuário cadastrado - processo interrompido em createUser()');
-            return 'alreadyExist';
-        }
-
-        const hashPassword = bcrypt.hashSync(user.password, 10);
-
-        await db.collection('users').insertOne({
-            ...user, password: hashPassword
-        });
+        return '201';
         
-        return 'created';
     } catch (error) {
         console.error(error);
         return 'error';

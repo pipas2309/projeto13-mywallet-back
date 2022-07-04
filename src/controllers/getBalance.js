@@ -1,11 +1,16 @@
 import { getEntries } from "../db/database.js";
 
-async function getUserEntries(req, res) {
+async function getBalance(req, res) {
     try {
         const user = res.locals.user;
         const entries = await getEntries(user);
-    
-        res.status(200).send(entries)
+        let balance = 0;
+
+        for(let i = 0; i < entries.length; i++) {
+            balance += entries[i].amount;
+        }
+
+        res.status(200).send({balance});
         return;
     } catch (error) {
         console.log(error);
@@ -14,4 +19,4 @@ async function getUserEntries(req, res) {
     }
 }
 
-export default getUserEntries;
+export default getBalance;

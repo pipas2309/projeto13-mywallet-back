@@ -1,5 +1,4 @@
 import { createUser, findUser } from '../db/database.js';
-import validateSignIn from '../middlewares/validateSignIn.js';
 
 async function newUser(req, res) {
     const user = res.locals.user;
@@ -9,6 +8,11 @@ async function newUser(req, res) {
 
         if(created === 'alreadyExist') {
             res.sendStatus(409);
+            return;
+        }
+
+        if(created === 'error') {
+            res.sendStatus(500);
             return;
         }
 

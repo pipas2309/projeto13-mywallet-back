@@ -7,7 +7,7 @@ async function validateSignIn(req, res, next) {
 
         if(!joiValidate) {
             console.log('Falha na validação JOI signIn()');
-            res.send("Insira um email e senha válido!").status(422);
+            res.status(422).send("Insira um email e senha válido!");
             return;
         }
 

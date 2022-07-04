@@ -4,8 +4,8 @@ import { v4 as uuid } from 'uuid';
 
 async function findUser(user) {
     try {
-        const userOnDatabase = await db.collection('users').findOne({ email: user.email }).toArray();
-        
+        const userOnDatabase = await db.collection('users').findOne({ email: user.email });
+
         if (!userOnDatabase) {
           return '404';
         }
@@ -18,7 +18,7 @@ async function findUser(user) {
       }
 }
 
-async function createUser(user) {
+async function createUser(user) { //done
     try {
         const alreadyExist = await db.collection('users').findOne({ email: user.email});
 
@@ -29,7 +29,6 @@ async function createUser(user) {
 
         const hashPassword = bcrypt.hashSync(user.password, 10);
 
-       
         await db.collection('users').insertOne({
             ...user, password: hashPassword
         });

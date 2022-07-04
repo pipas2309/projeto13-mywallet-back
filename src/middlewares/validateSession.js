@@ -1,19 +1,27 @@
 import { session } from "../db/database.js";
 
-export async function sessionHandler (req, res, next) {
+async function validateSession(req, res, next) {
     
     const { authorization } = req.headers;
     const token = authorization?.replace('Bearer ', '');
     
-    if(!token) return res.sendStatus(401);
+    if(!token) {
+        return res.status(498).send("Token expired/invalid");
+    }
 
-    const sessionDb = session(token)
-    //const session = await db.collection('tokens').findOne({token});
+    const sessionDb = await session(token)
 
-    if(!session) return res.sendStatus(401);
-    const user = await db.collection('records').findOne({_id: session.userId});
+    if(sessionDb === 'error') {
+        return res.sendStatus(401);
+    }
 
-    res.locals.user = user;
+    if(sessionDb === 'catch error') {
+        return res.sendStatus(500);
+    }
+
+    res.locals.user = sessionDb;
 
     next();
 }
+
+export default validateSession;

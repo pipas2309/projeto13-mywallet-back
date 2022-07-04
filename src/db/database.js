@@ -3,7 +3,7 @@ import { ObjectId } from 'mongodb';
 import bcrypt from 'bcrypt';
 import { v4 as uuid } from 'uuid';
 
-async function findUser(user) {
+async function findUser(user) { //done
     try {
         const userOnDatabase = await db.collection('users').findOne({ email: user.email });
 
@@ -72,19 +72,19 @@ async function postEntries(entry, user, date) {
     }
 }
 
-async function session(user) {
-    const sessionDb = await db.collection('tokens').findOne({userId: user._id});
-
-    if(sessionDb) {
-        return {
-            token: sessionDb.token,
-            email: user.email
-        };
-    };
-
-    const userDb = await db.collection('users').findOne({_id: sessionDb.userId});
-
-    return userDb;
+async function session(token) { //done
+    try {
+        const actualSession = await db.collection('tokens').findOne({token});
+        
+        if(actualSession) {
+            return actualSession;
+        } else {
+            return 'error';
+        }
+    
+    } catch (error) {
+        return 'catch error';
+    }
 }
 
 async function newToken(user) { //done

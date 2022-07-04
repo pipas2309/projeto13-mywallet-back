@@ -4,9 +4,9 @@ import dayjs from 'dayjs';
 
 async function transaction(req, res) {
     try {
-        const entry = res.locals.user;
+        const entry = res.locals.entry;
+        const user = res.locals.user;
         const date = dayjs().format('DD/MM');
-        const user = req.body
 
         await postEntries(entry, user, date);
         

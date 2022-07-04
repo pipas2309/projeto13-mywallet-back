@@ -5,20 +5,19 @@ async function validateEntry(req, res, next) {
         const entry = req.body;
         const joiValidate = await xxx(entry);
 
-        console.log(entry, 'entry')
-        console.log(joiValidate, 'entry do joivalidate')
-
         if(!joiValidate) {
             console.log('Falha na validação JOI signIn()');
-            res.status(422).send("Insira um email e senha válido!");
+            res.status(422).send("Quer depositar letras?\n Tá acumulando pra fazer uma sopa?");
             return;
         }
 
         res.locals.entry = entry;
+        console.log('tudo certo no vali entry')
         next();
     } catch (error) {
         console.error(error);
         res.sendStatus(500);
+        return;
     }
 }
 

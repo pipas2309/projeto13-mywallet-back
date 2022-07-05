@@ -5,6 +5,7 @@ async function validateSession(req, res, next) {
     const { authorization } = req.headers;
     const token = authorization?.replace('Bearer ', '');
     
+    console.log(token, 'token q o usuario mandou')
     if(!token) {
         return res.status(498).send("Token expired/invalid");
     }

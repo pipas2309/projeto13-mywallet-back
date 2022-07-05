@@ -73,7 +73,7 @@ async function postEntries(entry, user, date) { //done
 async function session(token) { //done
     try {
         const actualSession = await db.collection('tokens').findOne({token});
-        
+        console.log(actualSession, 'sessao atual')
         if(actualSession) {
             return actualSession;
         } else {
@@ -92,7 +92,8 @@ async function newToken(user) { //done
     const token = uuid();
     const time = Date.now();
 
-    if(time - lastSession.time < 6000 ) {
+    console.log(time, 'time\n', lastSession.time, 'last time\n', time - lastSession.time, 'conta\n', lastSession)
+    if(time - lastSession.time < 50000 ) {
         return lastSession;
     }
 
@@ -105,7 +106,8 @@ async function newToken(user) { //done
             })
             return {
                 ...lastSession,
-                token
+                token,
+                time
             };
         } catch (error) {
             return 'error';

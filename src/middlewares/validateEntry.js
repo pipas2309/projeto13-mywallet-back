@@ -1,9 +1,9 @@
-import xxx from '../models/entry.js';
+import joiEntry from '../models/entry.js';
 
 async function validateEntry(req, res, next) {
     try {
         const entry = req.body;
-        const joiValidate = await xxx(entry);
+        const joiValidate = await joiEntry(entry);
 
         if(!joiValidate) {
             console.log('Falha na validação JOI signIn()');

@@ -2,7 +2,8 @@ import joi from 'joi';
 
 const entrySchema = joi.object({
     amount: joi.number().precision(2).required(),
-    description: joi.string().min(1).max(64).required()
+    description: joi.string().min(1).max(32).required(),
+    type: joi.string().valid("plus", "minus").required()
 });
 
 async function entry(entry) {

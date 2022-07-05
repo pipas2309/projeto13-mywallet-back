@@ -7,7 +7,12 @@ async function getBalance(req, res) {
         let balance = 0;
 
         for(let i = 0; i < entries.length; i++) {
-            balance += entries[i].amount;
+            if(entries[i].type === "plus") {
+                balance += Number(entries[i].amount);
+            } else {
+                balance -= Number(entries[i].amount);
+            }
+            
         }
 
         res.status(200).send({balance});

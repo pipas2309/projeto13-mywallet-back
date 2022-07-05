@@ -92,13 +92,12 @@ async function newToken(user) { //done
     const token = uuid();
     const time = Date.now();
 
-    console.log(time, 'time\n', lastSession.time, 'last time\n', time - lastSession.time, 'conta\n', lastSession)
-    if(time - lastSession.time < 50000 ) {
-        return lastSession;
-    }
+
 
     if(lastSession) {
-
+        if(time - lastSession.time < 50000 ) {
+            return lastSession;
+        }
         try {
             await db.collection('tokens').updateOne({userId: new ObjectId(user._id)},
             {
